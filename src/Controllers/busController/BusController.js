@@ -32,8 +32,8 @@ module.exports = {
         holidays,
       });
       return res.json(newBus);
-    } catch (e) {
-      console.log("Error:" + e);
+    } catch (err) {
+      console.log("Error:" + err);
     }
   },
 
@@ -45,8 +45,8 @@ module.exports = {
           message: "Nenhum ônibus foi cadastrado no sistema até o momento!",
         });
       return res.json(allBus);
-    } catch (e) {
-      console.log("Error:" + e);
+    } catch (err) {
+      console.log("Error:" + err);
     }
   },
 
@@ -62,46 +62,8 @@ module.exports = {
         });
       }
       return res.json(bus);
-    } catch (e) {
-      console.log("Error" + e);
-    }
-  },
-
-  async updateProduct(req, res) {
-    try {
-      let { newDescription, newUnitValue, newRebate, _id } = req.body;
-      console.log(_id);
-      const update = {
-        description: newDescription,
-        unitValue: newUnitValue,
-        rebate: newRebate,
-      };
-      let product = await Product.findOneAndUpdate(_id, update);
-
-      if (!product)
-        return res
-          .status(404)
-          .json("Você esta tentando atualizar um produto que não existe!");
-
-      return res.json({ message: "Atualizado!" });
-    } catch (e) {
-      console.log("Error" + e);
-    }
-  },
-  async removeProduct(req, res) {
-    try {
-      let { _id } = req.body;
-
-      let product = await Product.findOneAndDelete(_id);
-      console.log(product);
-      if (!product)
-        return res
-          .status(404)
-          .json("Você esta tentando deletar um produto que não existe");
-
-      return res.json({ message: "Deletado!" });
-    } catch (e) {
-      console.log("Error" + e);
+    } catch (err) {
+      console.log("Error" + err);
     }
   },
 };
