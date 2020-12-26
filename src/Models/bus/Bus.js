@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const BusSchema = new mongoose.Schema({
-  hour: { type: Array, required: true },
+  hour: { type: String, required: true },
   cityStart: { type: String, required: true },
   cityEnd: { type: String, required: true },
   value: { type: Number, required: true },

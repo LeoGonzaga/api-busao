@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const cors = require("cors");
 const app = express();
-const port = 3000;
-
+const port = 3003;
+app.use(cors());
 mongoose.connect(
   "mongodb+srv://superadmin:qwe123leo@cluster0.fcq5c.mongodb.net/web?retryWrites=true&w=majority",
   {
