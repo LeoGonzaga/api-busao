@@ -1,10 +1,17 @@
 const express = require("express");
-const Bus = require("./src/Controllers/busController/BusController");
 const routes = express.Router();
 
+const Bus = require("./src/Controllers/busController/BusController");
+const User = require("./src/Controllers/userController/UserController");
+const Company = require("./src/Controllers/companyController/CompanyController");
+
 // Rotas
-routes.get("/all", Bus.getAllBus);
-routes.post("/create", Bus.createRoute);
-routes.post("/city", Bus.getBusByCity)
+routes.get("/Buses", Bus.getAllBus);
+routes.post("/createRoute", Bus.createRoute);
+routes.post("/busByCity", Bus.getBusByCity);
+
+routes.post("/createUser", User.createUser);
+
+routes.get("/Companys", Company.getCompanys);
 
 module.exports = routes;
