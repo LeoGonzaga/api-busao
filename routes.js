@@ -9,7 +9,7 @@ const Company = require("./src/Controllers/companyController/CompanyController")
 routes.get("/Buses", Bus.getAllBus);
 routes.post("/createRoute", Bus.createRoute);
 routes.post("/busByCity", Bus.getBusByCity);
-
+routes.post("/busByHour",Bus.getBusByHour);
 routes.post("/createUser", User.createUser);
 
 routes.get("/Companys", Company.getCompanys);

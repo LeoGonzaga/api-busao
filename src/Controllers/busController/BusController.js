@@ -55,8 +55,6 @@ module.exports = {
     try {
       regex = new RegExp();
       let { cityStart } = req.body;
-      console.log(cityStart);
-
 
       const bus = await Bus.find({
          cityStart: {$regex: cityStart, $options: "i"}
@@ -69,13 +67,29 @@ module.exports = {
       }
       return res.json(bus);
     } catch (err) {
-      console.log("Error" + err);
+      console.log("Error: " + err);
     }
   },
 
-  // async getBusByHour(req,res){
-  //   try{}
-  // },
+  async getBusByHour(req,res){
+    try{
+      let {hour} = req.body;
+
+      const bus = await Bus.find({
+        hour: hour
+      });
+
+      if(!hour || hour.length == 0){
+        return res.status(201).json({
+          message: "Não existem ônibus cadastrados às " + hour
+        });
+      }
+      return res.json(bus);
+
+    }catch(err){
+      console.log("Error: " + err)
+    }
+  },
 };
 
      
