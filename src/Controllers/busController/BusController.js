@@ -1,4 +1,5 @@
 const Bus = require("../../Models/bus/Bus");
+const titleCase = require('title-case');
 
 module.exports = {
   async createRoute(req, res) {
@@ -52,13 +53,18 @@ module.exports = {
 
   async getBusByCity(req, res) {
     try {
+      regex = new RegExp();
       let { cityStart } = req.body;
+      console.log(cityStart);
+
+
       const bus = await Bus.find({
-        cityStart: { $regex: cityStart },
+         cityStart: {$regex: cityStart, $options: "i"}
       });
+
       if (!bus || bus.length == 0) {
         return res.status(201).json({
-          message: "Não existem ônibus cadastrados saindo de" + cityStart,
+          message: "Não existem ônibus cadastrados saindo de " + cityStart,
         });
       }
       return res.json(bus);
@@ -66,4 +72,10 @@ module.exports = {
       console.log("Error" + err);
     }
   },
+
+  // async getBusByHour(req,res){
+  //   try{}
+  // },
 };
+
+     

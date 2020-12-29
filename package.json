@@ -5,13 +5,14 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js"
- },
+  },
   "dependencies": {
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.10",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "title-case": "^3.0.3"
   }
 }
