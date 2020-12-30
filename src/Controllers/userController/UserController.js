@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const User = require("../../Models/user/User");
 
@@ -16,7 +17,6 @@ module.exports = {
                 email,
                 pass
             } = req.body;
-            const access = "user";
 
             if(!name || !email || !pass){
                 return res.status(400).json({
@@ -24,7 +24,7 @@ module.exports = {
                 });
             }
 
-            let user = await User.find({ email });
+            let user = await User.findOne({ email });
             if(user){
                 return res.status(400).json({
                     error: "Usuario já cadastrado."
@@ -34,13 +34,29 @@ module.exports = {
             user = await User.create({
                 name,
                 email,
-                pass,
-                access
+                pass
             });
 
             return res.json(user);
         }catch(err){
             console.log("Error:" + err);
         }
+    },
+
+    async login(req,res){
+        const {email,pass} = req.body;
+    
+        const user = await User.findOne ({email}).select('+password');
+    
+        if(!user)
+            return res.status(400).json({message: 'Usuario não cadastrado'});
+    
+        if(!await bcrypt.compare(pass, user.pass))
+            return res.status(400).json({message: 'Senha incorreta'});
+    
+        res.send({
+            user,
+            token: generateToken( {id: user.id }),
+        });
     }
 }
