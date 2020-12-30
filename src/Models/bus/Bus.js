@@ -6,7 +6,7 @@ const BusSchema = new mongoose.Schema({
   cityEnd: { type: String, required: true },
   value: { type: Number, required: true },
   citys: { type: Array },
-  company: { type: String, required: true },
+  company: {type: mongoose.Schema.Types.ObjectId, ref: 'Company', required: true },
   days: { type: Object, required: true },
   holidays: { type: Boolean },
 });

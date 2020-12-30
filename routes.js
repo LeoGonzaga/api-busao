@@ -13,5 +13,6 @@ routes.post("/busByHour",Bus.getBusByHour);
 routes.post("/createUser", User.createUser);
 
 routes.get("/Companys", Company.getCompanys);
+routes.post("/createCompany",Company.createCompany);
 
 module.exports = routes;

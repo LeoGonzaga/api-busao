@@ -45,6 +45,7 @@ module.exports = {
         return res.json({
           message: "Nenhum ônibus foi cadastrado no sistema até o momento!",
         });
+      allBus.value.toFixed(2);
       return res.json(allBus);
     } catch (err) {
       console.log("Error:" + err);
