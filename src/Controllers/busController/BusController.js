@@ -87,9 +87,26 @@ module.exports = {
       return res.json(bus);
 
     }catch(err){
-      console.log("Error: " + err)
+      console.log("Error: " + err);
     }
   },
+
+  async cityNames(req, res){
+    try{
+      let aux = await Bus.find({});
+      let list = new Set();
+      let result = [];
+      aux.map((i)=>{
+        list.add(i.cityStart);
+      });
+      for(let i of list){
+        result.push(i);
+      }
+      return res.json(result);
+    }catch(err){
+      console.log("Error: " + err);
+    }
+  }
 };
 
      
