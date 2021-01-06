@@ -1,5 +1,8 @@
 const Bus = require("../../Models/bus/Bus");
 const titleCase = require('title-case');
+function SortByHour(bus){
+
+}
 
 module.exports = {
   async createRoute(req, res) {
@@ -58,6 +61,22 @@ module.exports = {
 
       const bus = await Bus.find({
          cityStart: {$regex: cityStart, $options: "i"}
+      }).map(bus=>{
+        bus.forEach(bus=>{
+          if(bus.hour[1]== 'h'){
+            bus.hour = '0' + bus.hour;
+          }
+        });
+        return bus;
+      });
+
+      const busOrdenado = bus.sort(function(a,b){
+        
+        if(a.hour<b.hour) return -1;
+
+        if(a.hour>b.hour) return 1;
+
+        return 0;
       });
 
       if (!bus || bus.length == 0) {
@@ -65,7 +84,7 @@ module.exports = {
           message: "Não existem ônibus cadastrados saindo de " + cityStart,
         });
       }
-      return res.json(bus);
+      return res.json(busOrdenado);
     } catch (err) {
       console.log("Error: " + err);
     }
@@ -108,5 +127,6 @@ module.exports = {
     }
   }
 };
+
 
      
