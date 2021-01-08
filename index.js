@@ -7,7 +7,7 @@ const app = express();
 const port = 3003;
 app.use(cors());
 mongoose.connect(
-  "mongodb+srv://games:games@omnistack.ekd7k.mongodb.net/busao?retryWrites=true&w=majority",
+  "mongodb+srv://superadmin:<password>@cluster0.fcq5c.mongodb.net/<dbname>?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
