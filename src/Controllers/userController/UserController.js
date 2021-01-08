@@ -4,8 +4,9 @@ const bcrypt = require("bcrypt");
 const User = require("../../Models/user/User");
 
 function generateToken(params ={}){
-    return jwt.sign(params, process.env.secret,{
-        expiresIn: 86400
+    return jwt.sign(params, process.env.privateKey,{
+        expiresIn: 86400,
+        algorithm: "RS256"
     });
 }
 
