@@ -43,12 +43,29 @@ module.exports = {
 
   async getAllBus(req, res) {
     try {
-      const allBus = await Bus.find();
+      const allBus = await Bus.find().map(bus=>{
+        bus.forEach(bus=>{
+          if(bus.hour[1]== 'h'){
+            bus.hour = '0' + bus.hour;
+          }
+        });
+        return bus;
+      });
+
+      const sortedBus = allBus.sort(function(a,b){
+        
+        if(a.hour<b.hour) return -1;
+
+        if(a.hour>b.hour) return 1;
+
+        return 0;
+      });
+
       if (allBus.length == 0)
         return res.json({
           message: "Nenhum ônibus foi cadastrado no sistema até o momento!",
         });
-      return res.json(allBus);
+      return res.json(sortedBus);
     } catch (err) {
       console.log("Error:" + err);
     }
@@ -70,7 +87,7 @@ module.exports = {
         return bus;
       });
 
-      const busOrdenado = bus.sort(function(a,b){
+      const sortedBus = bus.sort(function(a,b){
         
         if(a.hour<b.hour) return -1;
 
@@ -84,7 +101,7 @@ module.exports = {
           message: "Não existem ônibus cadastrados saindo de " + cityStart,
         });
       }
-      return res.json(busOrdenado);
+      return res.json(sortedBus);
     } catch (err) {
       console.log("Error: " + err);
     }
