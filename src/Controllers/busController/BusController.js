@@ -1,5 +1,6 @@
 const Bus = require("../../Models/bus/Bus");
 const titleCase = require('title-case');
+const { geoSearch } = require("../../Models/bus/Bus");
 function SortByHour(bus){
 
 }
@@ -138,6 +139,7 @@ module.exports = {
       let result = [];
       aux.map((i)=>{
         list.add(i.cityStart);
+        list.add(i.cityEnd)
       });
       for(let i of list){
         result.push(i);
@@ -146,6 +148,31 @@ module.exports = {
     }catch(err){
       console.log("Error: " + err);
     }
+  },
+
+  async getBus(req, res){
+    try{
+      const { cityStart, cityEnd, hour, company } = req.query;
+      
+      console.log(cityStart, cityEnd, hour, company);
+      let bus = await Bus.find({ 
+        cityStart: { $regex: cityStart, $options: "i" }, 
+        cityEnd: { $regex: cityEnd, $options: "i" },
+        hour: { $regex: hour, $options: "i" }, 
+        company: { $regex: company, $options: "i" }}).sort(
+          {hour: 1, cityStart: 1});
+      return res.json(bus)
+
+    }catch(err){
+      console.log("Error: " + err);
+    }
+  },
+
+  async getHour(req, res) {
+    let bus = await Bus.find({}).sort({hour: 1});
+    const hourMin = bus[0].hour;
+    const hourMax = bus[bus.length-1].hour;
+    return res.json({hourMin, hourMax})
   }
 };
 
