@@ -154,7 +154,7 @@ module.exports = {
     try{
       const { cityStart, cityEnd, hour, company } = req.query;
       
-      console.log(cityStart, cityEnd, hour, company);
+      // console.log(cityStart, cityEnd, hour, company);
       let bus = await Bus.find({ 
         cityStart: { $regex: cityStart, $options: "i" }, 
         cityEnd: { $regex: cityEnd, $options: "i" },
