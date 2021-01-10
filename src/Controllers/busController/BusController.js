@@ -54,13 +54,17 @@ module.exports = {
 
       const sortedBus = allBus.sort(function(a,b){
         
+        if(a.cityStart<b.cityStart) return -1;
+        if(a.cityStart>b.cityStart) return 1;
+        
         if(a.hour<b.hour) return -1;
-
         if(a.hour>b.hour) return 1;
+
+        
 
         return 0;
       });
-
+      
       if (allBus.length == 0)
         return res.json({
           message: "Nenhum ônibus foi cadastrado no sistema até o momento!",
