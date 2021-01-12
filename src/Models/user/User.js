@@ -5,8 +5,7 @@ const UserSchema = new mongoose.Schema({
     name: {type: String, required: true},
     email: {type: String, required: true},
     pass: {type: String, required: true},
-    localization: {type: String},
-    color:{type: String}
+    company: {type: String, required: true}
 });
 
 UserSchema.pre('save', async function(next){

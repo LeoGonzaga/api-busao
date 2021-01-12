@@ -149,14 +149,12 @@ module.exports = {
   async getBus(req, res){
     try{
       const { cityStart, cityEnd, hour, company } = req.query;
-      
-      console.log(cityStart, cityEnd, hour, company);
       let bus = await Bus.find({ 
         cityStart: { $regex: cityStart, $options: "i" }, 
         cityEnd: { $regex: cityEnd, $options: "i" },
         hour: { $regex: hour, $options: "i" }, 
         company: { $regex: company, $options: "i" }}).sort(
-          {hour: 1, cityStart: 1});
+          {hour: 1, cityStart: 1 });
       return res.json(bus)
 
     }catch(err){
@@ -168,7 +166,21 @@ module.exports = {
     let bus = await Bus.find({}).sort({hour: 1});
     const hourMin = bus[0].hour;
     const hourMax = bus[bus.length-1].hour;
-    return res.json({hourMin, hourMax})
+    return res.json({hourMin, hourMax});
+  },
+
+  async updateBus(req, res) {
+    const { busId, value, hour, days } = req.body;
+    let bus = await Bus.findById(busId);
+    if(!bus){
+      return res.status(401).json({error: "Onibus não encontrado"});
+    }
+
+    if(value) bus.value = value;
+    if(hour) bus.hour = hour;
+    //if(days) bus.days = days; 
+    bus.save()
+    return res.json({message: "Onibus atualizado"});
   }
 };
 

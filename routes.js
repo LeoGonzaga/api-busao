@@ -14,6 +14,7 @@ routes.get("/hour", Bus.getHour);
 routes.post("/createRoute", Bus.createRoute);
 routes.post("/busByCity", Bus.getBusByCity);
 routes.post("/busByHour", Bus.getBusByHour);
+routes.post("/updateRoute", Bus.updateBus);
 
 routes.post("/createUser", User.createUser);
 routes.post("/login", User.login);
