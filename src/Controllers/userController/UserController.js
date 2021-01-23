@@ -52,10 +52,9 @@ module.exports = {
     if (!(await bcrypt.compare(pass, user.pass)))
       return res.status(400).json({ message: "Senha incorreta" });
 
-    let token = await generateToken({ id: user.id });
     res.send({
       user,
-      token,
+      token: generateToken({ id: user.id }),
     });
   },
 };
