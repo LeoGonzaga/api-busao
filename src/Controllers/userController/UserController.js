@@ -3,12 +3,14 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 const User = require("../../Models/user/User");
 
-function generateToken(params = {}) {
+async function generateToken(params = {}) {
   console.log(process.env.privateKey);
-  return jwt.sign(params, process.env.privateKey, {
+
+  let token = await jwt.sign(params, process.env.privateKey, {
     expiresIn: 86400,
     algorithm: "RS256",
   });
+  return token;
 }
 
 module.exports = {
