@@ -4,8 +4,6 @@ require("dotenv").config();
 const User = require("../../Models/user/User");
 
 async function generateToken(params = {}) {
-  console.log(process.env.privateKey);
-
   let token = await jwt.sign(params, process.env.privateKey, {
     expiresIn: 86400,
     algorithm: "RS256",
@@ -54,9 +52,10 @@ module.exports = {
     if (!(await bcrypt.compare(pass, user.pass)))
       return res.status(400).json({ message: "Senha incorreta" });
 
+    let token = await generateToken({ id: user.id });
     res.send({
       user,
-      token: generateToken({ id: user.id }),
+      token,
     });
   },
 };
